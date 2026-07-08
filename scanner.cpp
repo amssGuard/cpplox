@@ -110,6 +110,13 @@ void Scanner::scanToken(){
         case '=': addToken(match('=')?TokenType::EQUAL_EQUAL:TokenType::EQUAL); break;
         case '/': if(match('/')){
             while(peek()!='\n'&&!isAtEnd()) advance();
+        }else if(match('*')){
+            while(!isAtEnd()&&!(peek()=='*'&&peekNext()=='/')){
+                if(peek()=='\n')line++;
+                advance();
+            }
+            advance();
+            advance();
         }else{
             addToken(TokenType::SLASH);
         }
