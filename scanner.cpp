@@ -9,6 +9,7 @@ std::vector<Token> Scanner::scanTokens(){
         scanToken();
     }
     tokens.push_back(Token(TokenType::EOF_TOKEN,"",std::monostate{},line));
+    return tokens;
 }
 
 bool Scanner::isAtEnd(){
@@ -56,7 +57,7 @@ void Scanner::string(){
 }
 
 bool Scanner::isDigit(char c){
-    return (c>=0&&c<=9);
+    return (c>='0'&&c<='9');
 }
 
 char Scanner::peekNext(){
