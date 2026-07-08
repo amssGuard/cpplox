@@ -116,6 +116,10 @@ void Scanner::scanToken(){
                 if(peek()=='\n')line++;
                 advance();
             }
+            if(isAtEnd()){
+                Lox::error(line,"unterminated comment");
+                return;
+            }
             advance();
             advance();
         }else{
