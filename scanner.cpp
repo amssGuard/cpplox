@@ -72,6 +72,25 @@ void Scanner::number(){
     addToken(TokenType::NUMBER,std::stod(source.substr(start,current-start)));
 }
 
+bool Scanner::isAlpha(char c){
+    return (c>='a'&&c<='z')||(c>='A'&&c<='Z')||c=='_';
+}
+
+bool Scanner::isAlphaNumeric(char c){
+    return isDigit(c)||isAlpha(c);
+}
+
+void Scanner::identifier(){
+    while(isAlphaNumeric(peek())) advance();
+
+    std::string text = source.substr(start, current-start);
+    auto it = keywords.find(text);
+    if(it==keywords.end())
+        addToken(TokenType::IDENTIFIER);
+    else
+        addToken(it->second);
+}
+
 void Scanner::scanToken(){
     char c = advance();
     switch(c){
@@ -104,6 +123,9 @@ void Scanner::scanToken(){
 
         default:
         if(isDigit(c)){
+            number();
+        }else if(isAlpha(c)){
+            identifier();
         }else{
             Lox::error(line,"Unexpected Character");
         }

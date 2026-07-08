@@ -11,6 +11,23 @@ class Scanner{
     int start = 0;
     int current = 0;
     int line = 1;
+    std::unordered_map<std::string, TokenType> keywords{
+        {"and",TokenType::AND},
+        {"class",TokenType::CLASS},
+        {"else",TokenType::ELSE},
+        {"for",TokenType::FALSE},
+        {"fun",TokenType::FUN},
+        {"if",TokenType::IF},
+        {"nil",TokenType::NIL},
+        {"or",TokenType::OR},
+        {"print",TokenType::PRINT},
+        {"return",TokenType::RETURN},
+        {"super",TokenType::SUPER},
+        {"this",TokenType::THIS},
+        {"true",TokenType::TRUE},
+        {"var",TokenType::VAR},
+        {"while",TokenType::WHILE}
+    };
 
     bool isAtEnd();
     void scanToken();
@@ -23,6 +40,9 @@ class Scanner{
     bool isDigit(char);
     void number();
     char peekNext();
+    bool isAlpha(char);
+    bool isAlphaNumeric(char);
+    void identifier();
 
     public:
     Scanner(std::string source);
